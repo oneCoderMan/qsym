@@ -3,13 +3,13 @@ import os
 import shutil
 import subprocess
 import sys
-import termcolor
-
+# import termcolor
+#
 AT_FILE = "@@"
-
-def FATAL(msg):
-    print termcolor.colored(msg, 'red')
-    sys.exit(-1)
+#
+# def FATAL(msg):
+#     print termcolor.colored(msg, 'red')
+#     sys.exit(-1)
 
 def fix_at_file(cmd, testcase):
     cmd = copy.copy(cmd)

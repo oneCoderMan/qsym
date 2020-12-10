@@ -4,10 +4,11 @@ import argparse
 import logging
 import os
 import shutil
+import sys
 from qsym import Executor, utils
-
 l = logging.getLogger('[run_qsym]')
 
+# 为了能够被调用，先配置环境变量　PYTHONPATH=$PYTHONPATH:currentPath
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("-i", dest="input_file", help="An input file", required=True)
@@ -27,6 +28,7 @@ def main():
     # 创建qsym需要的目录
     qsymDir = os.path.join(args.output_dir, "qsym")
     qsymQueue = os.path.join(qsymDir, "queue")
+    mkdir(args.tmp_dir)
     mkdir(qsymDir)
     mkdir(qsymQueue)
     # 当前文件
@@ -48,6 +50,8 @@ def main():
                     ret.emulation_time,
                     ret.solving_time,
                     ret.returncode))
+    #todo 加入bitmap
+
 
     # 获取种子
     src_id = os.path.basename(target)[:len("id:......")]
@@ -58,7 +62,7 @@ def main():
         filename = os.path.join(qsymQueue, "id:%06d,src:%s"%(num_testcase, src_id))
        # shutil.copy2(testcase, filename)
         shutil.move(testcase, filename)
-        l.debug("Creating: %s" %filename)
+        # l.debug("Creating: %s" %filename)
 
     # try:
     #     os.rmdir(q.testcase_directory)
