@@ -1,0 +1,4 @@
+-i /root/desktop/jasperQsymAFL/out/afl-master/queue/id:000028,src:000008,op:havoc,rep:2  -o /root/desktop/jasperQsymAFL/out  -- "/root/desktop/jasperQsymAFL/forQsym/jasper -f @@ -t mif -F /tmp/out -T jpg"
+/root/desktop/jasperQsymAFL/out
+
+bin/run_qsym_afl.py -a afl-master -o /root/desktop/jasperQsymAFL/out  -n qsym -- "/root/desktop/jasperQsymAFL/forQsym/jasper -f @@ -t mif -F /tmp/out -T jpg"
