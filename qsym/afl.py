@@ -51,8 +51,7 @@ def mkdir(dirp):
         os.makedirs(dirp)
 
 def check_so_file():
-    print PINTOOL_DIR
-    print VEN_PINTOOL_DIR
+    logger.debug("%s %s " % (PINTOOL_DIR, VEN_PINTOOL_DIR))
     for SO_file in SO.values():
         if not os.path.exists(SO_file):
             # Maybe updating now.. please wait
@@ -357,6 +356,12 @@ class AFLExecutor(object):
                 self.run_file(fp)
                 break
 
+    def runWithOneInput(self, cur_input):
+        logger.debug("Temp directory=%s" % self.tmp_dir)
+
+        if os.path.isfile(cur_input):
+            self.run_file(cur_input)
+
     def run_file(self, fp):
         check_so_file()
 
@@ -383,7 +388,7 @@ class AFLExecutor(object):
                     self.my_queue,
                     "id:%06d,src:%s" % (index, target))
             shutil.move(testcase, filename)
-            logger.debug("Creating: %s" % filename)
+            # logger.debug("Creating: %s" % filename)
 
         if os.path.exists(q.log_file):
             os.unlink(q.log_file)
@@ -397,4 +402,4 @@ class AFLExecutor(object):
         logger.debug("Generate %d testcases" % num_testcase)
         logger.debug("%d testcases are new" % (self.state.index - old_idx))
 
-        self.check_crashes()
+        # self.check_crashes()

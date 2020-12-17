@@ -1,18 +1,18 @@
 #!/usr/bin/env python2
-import atexit
+# import atexit
 import argparse
 import logging
-import functools
-import hashlib
-import json
+# import functools
+# import hashlib
+# import json
 import os
-import pickle
-import shutil
-import subprocess as sp
-import sys
-import tempfile
-import time
-import pyinotify
+# import pickle
+# import shutil
+# import subprocess as sp
+# import sys
+# import tempfile
+# import time
+# import pyinotify
 import sys
 sys.path.append("..")
 import qsym
@@ -22,6 +22,7 @@ def parse_args():
     p.add_argument("-o", dest="output", required=True, help="AFL output directory")
     p.add_argument("-a", dest="afl", required=True, help="AFL name")
     p.add_argument("-n", dest="name", required=True, help="Qsym name")
+    p.add_argument("-i", dest="input_file", help="An input file", required=True)
     p.add_argument("-f", dest="filename", default=None)
     p.add_argument("-m", dest="mail", default=None)
     p.add_argument("-b", dest="asan_bin", default=None)
@@ -38,10 +39,15 @@ def main():
 
     e = qsym.afl.AFLExecutor(args.cmd, args.output, args.afl,
                              args.name, args.filename, args.mail, args.asan_bin)
-    try:
-        e.run()
-    finally:
-        e.cleanup()
+
+    fp = args.input_file
+
+    e.runWithOneInput(fp)
+
+    # try:
+    #     e.run()
+    # finally:
+    #     e.cleanup()
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
