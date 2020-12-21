@@ -32,7 +32,7 @@ def main():
     mkdir(qsymDir)
     mkdir(qsymQueue)
     # 当前文件
-    cur_input = os.path.realpath(os.path.join(args.output_dir, ".cur_input"))
+    cur_input = os.path.realpath(os.path.join(args.output_dir, ".qsym_cur_input"))
     # 这个input_file是一个文件带有id记录的
     target = args.input_file
     shutil.copy2(target, cur_input)
